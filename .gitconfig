@@ -1,0 +1,23 @@
+[user]
+	email = danytokmakov@gmail.com
+	name = danblok
+[core]
+	editor = nvim
+	autocrlf = input
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[alias]
+	# lg = log --pretty=format:'%an commited %h'
+	loga = log --oneline --all --graph --decorate
+	ss = status -s
+	unstage = restore --staged .
+	cm = commit -m
+	ap = add -p
+[color]
+	ui = true
+[maintenance]
+	repo = /home/vacatixn/projects/go/auth
+[init]
+	defaultBranch = main
