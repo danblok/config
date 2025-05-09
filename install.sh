@@ -25,4 +25,4 @@ curl \
     https://raw.githubusercontent.com/danblok/config/refs/heads/main/tmux/tmux.conf -o ~/.tmux.conf \
     https://raw.githubusercontent.com/danblok/config/refs/heads/main/.zshrc -o ~/.zshrc
 
-git clone --branch=v3 --depth=1 git@github.com:danblok/nvim-config.git ~/.config/nvim
+git clone --branch=v3 --depth=1 https://github.com/danblok/nvim-config.git ~/.config/nvim
