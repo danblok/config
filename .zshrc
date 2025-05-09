@@ -1,13 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-# setopt extended_glob
-# setopt dot_glob
-#
-# Path to your oh-my-zsh installation.
+# export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -74,9 +72,15 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git
-	z
-	zsh-autosuggestions
-	zsh-syntax-highlighting
+	systemd
+	tmux
+    fzf
+	composer
+	ssh
+	ssh-agent
+	procs
+	rsync
+	colored-man-pages
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -84,7 +88,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste up-line-or-search down-line-or-search expand-or-complete accept-line push-line-or-edit)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -93,69 +96,45 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste up-line-or-search down-line-or-s
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# eval "$(oh-my-posh --init --shell zsh --config /mnt/c/ProgramData/Posh/spaceship.omp.json)"
-alias vim=nvim
-alias py=python3
-alias info="info --vi-keys"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# eval "$(oh-my-posh init zsh --config /mnt/c/ProgramData/Posh/custom.omp2.json)"
-# eval "$(oh-my-posh init zsh)"
-export GOBIN="$HOME/go/bin"
-export PATH="$PATH:/opt/nvim-linux64/bin"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$HOME/go/bin"
-export PATH="$PATH:$GOBIN"
-export PATH="$PATH:/mnt/c/Users/kotok/AppData/Local/Microsoft/WindowsApps"
-export PATH="$PATH:/mnt/c/Users/kotok/AppData/Local/Programs/Microsoft VS Code/bin"
-export PATH="$PATH:/mnt/c/Program Files/Docker/Docker/resources/bin"
-export PATH="$PATH:/mnt/c/ProgramData/DockerDesktop/version-bin"
-export PATH="$PATH:/mnt/c/WINDOWS"
-export PATH="$PATH:$HOME/tools/cmake/bin"
-export PATH="$PATH:$HOME/tools/clangd/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/lua-5.4.6/src"
-export PATH="$PATH:/usr/local/zig"
-export PATH="$PATH:$HOME/raylib/src"
-export PATH="$PATH:$HOME/.local/share/nvim/mason/bin/"
+export PATH="$PATH:$HOME/.local/bin"
+export FZF_DEFAULT_OPTS="--tmux 90%,90%
+--layout default
+--walker-skip .git,node_modules,target"
+export FZF_DEFAULT_COMMAND="fd --type f -HI --strip-cwd-prefix"
+export FZF_CTRL_T_OPTS="
+--preview 'bat --color=always --style=numbers {}'
+--bind 'focus:+transform-header:file --brief {}'
+"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_OPTS="--walker-skip .git,node_modules,vendor,target
+--preview 'tree -C {}'"
+export FZF_ALT_C_COMMAND="fd --type d -HI --strip-cwd-prefix"
+export EDITOR="nvim"
+alias vi=nvim
+alias oil=oil-ssh.sh
 
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/home/pxl/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/pxl/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
-# bun completions
-[ -s "/home/nomercy/.bun/_bun" ] && source "/home/nomercy/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# Turso
-export PATH="/home/nomercy/.turso:$PATH"
-export COLORTERM=truecolor
-
-# JAVA
-export JAVA_HOME='/opt/jdk-21.0.2'
-export PATH="$JAVA_HOME/bin:$PATH"
-export M2_HOME='/opt/apache-maven-3.9.6'
-export PATH="$M2_HOME/bin:$PATH"
-
-#Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/home/dante/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/home/dante/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-
-export EDITOR=nvim
+# Always source it in the end
+source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
