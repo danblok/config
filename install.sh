@@ -13,6 +13,7 @@ packages=(
     bat
     nvim
 )
+sudo dnf dsync -y
 sudo dnf install "${packages[*]}" -y
 
 mkdir -p ~/.local/bin ~/.config
